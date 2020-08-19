@@ -2,7 +2,7 @@ const path = require('path');
 const fetch = require('node-fetch');
 const constants = require('../utils/config.js');
 
-const token = "RGAPI-cbe86298-c521-4106-b476-ff872c0eda8b";
+const token=process.env.token;
 
 const routes = {
     index: function (req, res, next) {
