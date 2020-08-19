@@ -5,11 +5,9 @@ const SearchBar = ({doSearch}) => {
     
     const [input, setInput] = useState('');
 
-    const handleInputChange = (event) => {
-        const value = event.target.value;
+    const handleInputChange = (value) => {
         setInput(value);
-        console.log(typeof doSearch)
-    } 
+    }
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -20,7 +18,7 @@ const SearchBar = ({doSearch}) => {
     return (
         <Search
             onKeyDown={handleKeyDown}
-            onChange={handleInputChange}
+            onChange={(e) => {handleInputChange(e.target.value)}}
         />
     )
 }
