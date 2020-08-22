@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from "react";
+import constants from "../utils/constants";
 
-const SummonerCard = ({data, ...others}) => {
+const SummonerCard = ({ data, ...others }) => {
+  if (!data) {
+    return null;
+  }
 
-    if (!data) {
-        return null;
-    }
+  return (
+    <div className="summoner-card">
+      <img
+        className="summoner-card_icon"
+        src={constants.summonerIconLink(data.profileIconId)}
+      />
+      <div className="summoner-card_info">
+        <span className="summoner-card_info_name">{data.name}</span>
+        <span className="summoner-card_info_level">
+          level {data.summonerLevel}
+        </span>
+      </div>
+    </div>
+  );
+};
 
-    return (
-        <div className='summoner-card'>
-            <img className='summoner-card_icon' src={`http://localhost:9000/profileicon/${data.profileIconId}.png`}/>
-            <div className='summoner-card_name'>{data.name}</div>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-    )
-}
-
-export default SummonerCard;
+export default memo(SummonerCard);

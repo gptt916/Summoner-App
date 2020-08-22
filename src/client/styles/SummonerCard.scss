@@ -1,0 +1,21 @@
+.summoner-card {
+    display: flex;
+    margin: 2rem 0;
+    border: 1px grey solid;
+    box-shadow: 1px 1px 1px grey;
+    padding: 0.5rem;
+    
+    .summoner-card_info {
+        display: flex;
+        flex-direction: column;
+    }
+    .summoner-card_icon {
+        height: 128px;
+        width: 128px;
+        margin-right: 2rem;
+    }
+
+    .summoner-card_info_name {
+        font-size: 28px;
+    }
+}

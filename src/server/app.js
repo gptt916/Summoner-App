@@ -3,7 +3,7 @@ console.log('Starting Server');
 const express = require('express');
 const path = require('path');
 
-const constants = require('../utils/config');
+const constants = require('./utils/constants');
 const routes = require('./routes.js');
 
 const app = express();

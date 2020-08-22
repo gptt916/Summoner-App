@@ -1,6 +1,6 @@
 const path = require('path');
 const fetch = require('node-fetch');
-const constants = require('../utils/config.js');
+const constants = require('./utils/constants.js');
 
 const token=process.env.token;
 

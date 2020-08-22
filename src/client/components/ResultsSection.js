@@ -1,5 +1,6 @@
 import React, { useState } from 'react'; 
 import SummonerCard from './SummonerCard';
+import MatchSection from './MatchSection';
 
 const ResultsSection = ({data, ...others}) => {
 
@@ -10,7 +11,7 @@ const ResultsSection = ({data, ...others}) => {
     return (
         <>
             <SummonerCard data={data.summoner}/>
-            <pre>{JSON.stringify(data.matchlist, null, 2)}</pre>
+            <MatchSection data={data.matchlist}/>
         </>
     )
 }
