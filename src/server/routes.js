@@ -36,7 +36,7 @@ const routes = {
         try {
             const summonerResponse = await axios.get(summonerUrl, {
                 headers: {
-                    "X-Riot-Token": token,
+                    "X-Riot-Token": token
                 }
             });
 
@@ -54,7 +54,7 @@ const routes = {
             const matchlistUrl = `${constants.matchlistApi.replace(/\{puuid\}/, summonerJson.puuid)}?start=${page-1}&count=${10}`
             const matchlistResponse = await axios.get(matchlistUrl, {
                 headers: {
-                    "X-Riot-Token": token,
+                    "X-Riot-Token": token
                 }
             });
             if (matchlistResponse.status === 200) {
@@ -86,7 +86,7 @@ const routes = {
             const matchDetailsUrl = `${constants.matchDetailsApi}${gameId}`;
             const matchResponse = await axios.get(matchDetailsUrl, {
                 headers: {
-                    "X-Riot-Token": token,
+                    "X-Riot-Token": token
                 }
             });
             if (matchResponse.status === 200) {

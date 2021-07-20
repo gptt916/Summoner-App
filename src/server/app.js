@@ -10,6 +10,7 @@ const morgan = require('morgan');
 const constants = require('./utils/constants');
 const routes = require('./routes.js');
 
+const port = process.env.PORT;
 const app = express();
 
 const mapsPath = `assets/${constants.currentPatch}/data`;
@@ -42,5 +43,5 @@ app.get('/', routes.index);
 app.get('/api/summonerName/:summonerName', routes.summonerByName);
 app.get('/api/matchDetails/:gameId', routes.matchDetails);
 
-app.listen(9000);
-console.log('listening on port 9000')
+app.listen(port);
+console.log(`listening on port ${port}`);
