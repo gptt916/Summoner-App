@@ -2,8 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-
-const constants = require('../config/constants.js');
+const constants = require('../utils/constants');
+console.log(constants.currentPatch)
 const championRawData = require(`../assets/${constants.currentPatch}/dataDragon/${constants.currentPatch}/data/en_US/champion.json`).data;
 const championMap = {};
 
@@ -16,7 +16,7 @@ const championMapOutputPath = path.join(path.resolve(), 'assets', constants.curr
 
 fs.writeFile(championMapOutputPath, JSON.stringify(championMap), (err) => {
     if (err) {
-        throw error;
+        throw new Error('error');
     }
     console.log('Champion map generated');
 });

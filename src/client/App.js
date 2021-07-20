@@ -33,7 +33,7 @@ const App = () => {
 
     <div className="App">
       <div className="main-content" role="main">
-        <div>Search for a summoner</div>
+        <div>Search for a summoner asdfasdf</div>
         <SearchBar doSearch={doSearch}/>
         <ResultsSection data={summonerResult}/>
       </div>

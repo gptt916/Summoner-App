@@ -1,5 +1,5 @@
 const constants = {
-    currentPatch: '10.16.1',
+    currentPatch: '11.14.1',
     matchDataEndpoint: (id) => {
         return `http://localhost:9000/api/matchDetails/${id}`
     },

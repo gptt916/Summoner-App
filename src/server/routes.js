@@ -1,8 +1,8 @@
 const path = require('path');
-const fetch = require('node-fetch');
+const axios = require('axios');
 const constants = require('./utils/constants.js');
 
-const token=process.env.token;
+const token = process.env.riotToken;
 
 const routes = {
     index: function (req, res, next) {
@@ -15,6 +15,7 @@ const routes = {
      * @param {*} next 
      */
     summonerByName: async function (req, res, next) {
+        console.log(token)
         res.setHeader('Access-Control-Allow-Origin', '*')
 
         const { summonerName } = req.params;
@@ -30,27 +31,46 @@ const routes = {
             return;
         }
 
-        const endIndex = page*10;
-        const beginIndex = endIndex-10;
+        const summonerUrl = `${constants.summonerApi}${req.params.summonerName}`
+        let summonerJson;
+        try {
+            const summonerResponse = await axios.get(summonerUrl, {
+                headers: {
+                    "X-Riot-Token": token,
+                }
+            });
 
-        const summoner = await fetch(`${constants.summonerApi}${req.params.summonerName}`, {
-            headers: {
-                "X-Riot-Token": token,
+            if (summonerResponse.status === 200) {
+                summonerJson = summonerResponse.data;
             }
-        });
-        const summonerJson = await summoner.json();
+        } catch (err) {
+            console.log(err)
+            res.sendStatus(500)
+            return;
+        }
 
-        const matchlist = await fetch(`${constants.matchlistApi}${summonerJson.accountId}?beginIndex=${beginIndex}&endIndex=${endIndex}`, {
-            headers: {
-                "X-Riot-Token": token,
+        let matchlistJson;
+        try {
+            const matchlistUrl = `${constants.matchlistApi.replace(/\{puuid\}/, summonerJson.puuid)}?start=${page-1}&count=${10}`
+            const matchlistResponse = await axios.get(matchlistUrl, {
+                headers: {
+                    "X-Riot-Token": token,
+                }
+            });
+            if (matchlistResponse.status === 200) {
+                matchlistJson = matchlistResponse.data;
             }
-        });
-        const matchlistJson = await matchlist.json();
+        } catch (err) {
+            console.log(err)
+            res.sendStatus(500)
+            return;
+        }
 
         res.json({
             summoner: summonerJson,
             matchlist: matchlistJson
         });
+
         return;
     },
 
@@ -61,13 +81,23 @@ const routes = {
             res.sendStatus(400);
             return;
         }
-
-        const match = await fetch(`${constants.matchDetailsApi}${gameId}`, {
-            headers: {
-                "X-Riot-Token": token,
-            }
-        });
-        const matchJson = await match.json();
+        let matchJson;
+        try {
+            const matchDetailsUrl = `${constants.matchDetailsApi}${gameId}`;
+            const matchResponse = await axios.get(matchDetailsUrl, {
+                headers: {
+                    "X-Riot-Token": token,
+                }
+            });
+            if (matchResponse.status === 200) {
+                matchJson = matchResponse.data;
+            } 
+        }
+        catch (err) {
+            console.log(err)
+            res.sendStatus(500)
+            return;
+        }
 
         res.setHeader('Access-Control-Allow-Origin', '*')
         res.json(matchJson);
